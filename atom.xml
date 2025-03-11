@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ego</title>
+  
+  <subtitle>perserver</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2025-03-11T08:02:21.646Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java.collection</title>
+    <link href="http://example.com/2025/03/11/java-collection/"/>
+    <id>http://example.com/2025/03/11/java-collection/</id>
+    <published>2025-03-11T08:00:23.000Z</published>
+    <updated>2025-03-11T08:02:21.646Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;List：有序可重复&quot;&gt;&lt;a href=&quot;#List：有序可重复&quot; class=&quot;headerlink&quot; title=&quot;List：有序可重复&quot;&gt;&lt;/a&gt;List：有序可重复&lt;/h2&gt;&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://example.com/2025/03/11/hello-world/"/>
+    <id>http://example.com/2025/03/11/hello-world/</id>
+    <published>2025-03-11T03:43:54.349Z</published>
+    <updated>2025-03-11T03:42:50.763Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
