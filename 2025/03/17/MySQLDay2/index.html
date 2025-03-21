@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="为了喜欢而努力" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQLDay2 |  Ego</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Ego" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-MySQLDay2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQLDay2
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/03/17/MySQLDay2/" class="article-date">
+  <time datetime="2025-03-17T15:07:48.000Z" itemprop="datePublished">2025-03-17</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="4-DQL查询数据（最最重要的部分）"><a href="#4-DQL查询数据（最最重要的部分）" class="headerlink" title="4. DQL查询数据（最最重要的部分）"></a>4. DQL查询数据（最最重要的部分）</h2><h3 id="4-1-DQL"><a href="#4-1-DQL" class="headerlink" title="4.1 DQL"></a>4.1 DQL</h3><blockquote>
+<p>(Date Query Language:数据查询语言)</p>
+</blockquote>
+<ul>
+<li>所有的查询操作都使用它 <strong>select</strong></li>
+<li>简单的查询或者复杂的查询都依赖它</li>
+<li>数据库中最核心的语言，使用频率最高</li>
+</ul>
+<h3 id="4-2-指定字段查询（简单查询）"><a href="#4-2-指定字段查询（简单查询）" class="headerlink" title="4.2 指定字段查询（简单查询）"></a>4.2 指定字段查询（简单查询）</h3><blockquote>
+<p><strong>简单查询</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询全部的学生</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> student</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询指定的字段</span></span><br><span class="line"><span class="keyword">SELECT</span> `id`,`name` <span class="keyword">FROM</span> student</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 起别名，常用于列名或者表名不能见名知意</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="keyword">AS</span> <span class="string">&#x27;ID&#x27;</span> ,`name` <span class="keyword">AS</span> <span class="string">&#x27;姓名&#x27;</span> <span class="keyword">FROM</span> student <span class="keyword">AS</span> s</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 函数 Concat(a,b),将两个部分拼接起来</span></span><br><span class="line"><span class="keyword">SELECT</span> CONCAT(<span class="string">&#x27;姓名:&#x27;</span>,`name`) <span class="keyword">AS</span> 新名字 <span class="keyword">FROM</span> student</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>去重 <em><strong>distinct</strong></em></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询数据并且去重</span></span><br><span class="line"><span class="comment">-- 查询所有或者单一数据的时候会出现重复</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> student</span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> student</span><br><span class="line"><span class="comment">-- 使用distinct去除重复数据</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> `name` <span class="keyword">FROM</span> `student`</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>数据库的列（表达式）：文本，列，函数，表达式  … </p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看数据库版本（函数）</span></span><br><span class="line"><span class="keyword">SELECT</span> VERSION()</span><br><span class="line"><span class="comment">-- 实现数学计算</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="number">100</span><span class="operator">*</span><span class="number">200</span><span class="operator">/</span><span class="number">25</span> <span class="keyword">AS</span> `<span class="keyword">result</span>`</span><br><span class="line"><span class="comment">-- 查看自增</span></span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@auto_increment_increment</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 所有id加一，更加便捷的处理数据</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="operator">+</span><span class="number">1</span> <span class="keyword">AS</span> ID <span class="keyword">FROM</span> student</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-3-where-条件子句查询"><a href="#4-3-where-条件子句查询" class="headerlink" title="4.3 where 条件子句查询"></a>4.3 where 条件子句查询</h3><blockquote>
+<p><strong>检索数据中符合条件的值</strong></p>
+</blockquote>
+<p>搜索的条件由一个或者多个表达式组成，结果为布尔值</p>
+<blockquote>
+<p>逻辑运算符：尽量使用英文</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>语法</th>
+<th>布尔值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and   &amp;&amp;</td>
+<td>a and b</td>
+<td></td>
+</tr>
+<tr>
+<td>or    ||</td>
+<td>a or b</td>
+<td></td>
+</tr>
+<tr>
+<td>not   ！</td>
+<td>not a</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- WHERE</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> `id` <span class="operator">=</span> <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询id在2 - 3之间</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student` </span><br><span class="line"><span class="keyword">WHERE</span> `id`<span class="operator">&gt;=</span><span class="number">2</span> <span class="keyword">AND</span> `id` <span class="operator">&lt;=</span><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 模糊查询</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `id` <span class="keyword">BETWEEN</span> <span class="number">2</span> <span class="keyword">AND</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 除了id = 4，都查询</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> `id` <span class="operator">=</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>模糊查询：比较运算符</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>语法</th>
+<th>布尔值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IS NULL</td>
+<td>a is null</td>
+<td>如果为null，true</td>
+</tr>
+<tr>
+<td>IS NOT NULL</td>
+<td>a is not null</td>
+<td>如果为null，false</td>
+</tr>
+<tr>
+<td>BETWEEN</td>
+<td>a between b and c</td>
+<td>在b，c之间，true</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>a like b</td>
+<td>如果sql匹配，true</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>a in (b,c,d…)</td>
+<td>在b，c，d之间，true</td>
+</tr>
+</tbody></table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 模糊查询</span></span><br><span class="line"><span class="comment">-- 查询名字带有e的id</span></span><br><span class="line"><span class="comment">-- like结合 %(匹配任意个数的字符)  _(匹配任意一个字符)</span></span><br><span class="line"><span class="comment">-- 查询英文不区分大小写</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `name` <span class="keyword">LIKE</span> <span class="string">&#x27;e%&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询开头为e的id，后面只跟着一个字符</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `name` <span class="keyword">LIKE</span> <span class="string">&#x27;e_&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询开头为e的id，后面只跟着两个字符</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `name` <span class="keyword">LIKE</span> <span class="string">&#x27;e__&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询名字中间带有g的名字,无法确认名字一定是三位</span></span><br><span class="line"><span class="keyword">SELECT</span> `id` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `name` <span class="keyword">LIKE</span> <span class="string">&#x27;%g%&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student`</span><br><span class="line">(`id`,`name`) <span class="keyword">VALUES</span> (<span class="string">&#x27;5&#x27;</span>,<span class="string">&#x27;aliya&#x27;</span>),(<span class="string">&#x27;6&#x27;</span>,<span class="string">&#x27;elysia&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- IN --</span></span><br><span class="line"><span class="comment">-- 查询id为2和3和5</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `id` <span class="keyword">IN</span> (<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询性别为男，女的同学</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `gender` <span class="keyword">IN</span> (<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- NULL</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `address` <span class="keyword">IS</span> <span class="keyword">NULL</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- NOT NULL</span></span><br><span class="line"><span class="keyword">SELECT</span> `name` <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="keyword">WHERE</span> `address` <span class="keyword">IS</span> <span class="keyword">NOT NULL</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-4-联表查询"><a href="#4-4-联表查询" class="headerlink" title="4.4 联表查询"></a>4.4 联表查询</h3><blockquote>
+<p>七种joinlilun</p>
+</blockquote>
+<p>![image-20250317212609192](E:\hobby\Hexo Blog\blog\source_posts\MySQLDay2.assets\image-20250317212609192.png)</p>
+<blockquote>
+<p>常见的三种join</p>
+</blockquote>
+<p>![image-20250317213010887](E:\hobby\Hexo Blog\blog\source_posts\MySQLDay2.assets\image-20250317213010887.png)</p>
+<hr>
+<blockquote>
+<p><em><strong>联表查询</strong></em></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 联表查询:确定使用的连接，然后找到连接点（两个表中相同的数据）</span></span><br><span class="line"><span class="comment">-- join on  连接查询</span></span><br><span class="line"><span class="comment">-- where  等值查询</span></span><br><span class="line"><span class="comment">-- INNER JOIN</span></span><br><span class="line"><span class="keyword">SELECT</span> studentNO,studentNAME,subjectNO</span><br><span class="line"><span class="keyword">FROM</span> student <span class="keyword">AS</span> s</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> <span class="keyword">result</span> <span class="keyword">AS</span> r </span><br><span class="line"><span class="keyword">WHERE</span> s.studentNO <span class="operator">=</span> r.studentNO</span><br><span class="line"></span><br><span class="line"><span class="comment">-- RIGHT JOIN 使用 ON 和 WHERE 是一样的</span></span><br><span class="line"><span class="keyword">SELECT</span> studentNO,studentNAME,subjectNO</span><br><span class="line"><span class="keyword">FROM</span> student <span class="keyword">AS</span> s</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> <span class="keyword">result</span> <span class="keyword">AS</span> r </span><br><span class="line"><span class="keyword">ON</span> s.studentNO <span class="operator">=</span> r.studentNO</span><br><span class="line"></span><br><span class="line"><span class="comment">-- LEFT JOIN 使用 ON 和 WHERE 是一样的</span></span><br><span class="line"><span class="keyword">SELECT</span> studentNO,studentNAME,subjectNO</span><br><span class="line"><span class="keyword">FROM</span> student <span class="keyword">AS</span> s</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> <span class="keyword">result</span> <span class="keyword">AS</span> r </span><br><span class="line"><span class="keyword">ON</span> s.studentNO <span class="operator">=</span> r.studentNO</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 思路：</span></span><br><span class="line"><span class="comment">-- 我要查询什么数据</span></span><br><span class="line"><span class="comment">-- 我要从那两个表中开始查</span></span><br><span class="line"><span class="comment">-- 确定连接点</span></span><br><span class="line"><span class="comment">-- 确定查询操作</span></span><br><span class="line"><span class="comment">-- 先查两张表再继续，慢慢增加</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>三种查询的区别</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">INNER JOIN</td>
+<td align="center">表中有一个匹配就返回</td>
+</tr>
+<tr>
+<td align="center">RIGHT JOIN</td>
+<td align="center">会返回所有左表查询的信息，即使右表不匹配</td>
+</tr>
+<tr>
+<td align="center">LEFT JOIN</td>
+<td align="center">会返回所有右表查询的信息，即使左表不匹配</td>
+</tr>
+</tbody></table>
+<h4 id="1-INNER-JOIN（内连接）"><a href="#1-INNER-JOIN（内连接）" class="headerlink" title="1. INNER JOIN（内连接）"></a>1. INNER JOIN（内连接）</h4><p>INNER JOIN用于返回两个表中匹配的行，即两个表中具有相同连接条件的记录会被组合在一起。如果某一行在其中一个表中存在，但在另一个表中没有匹配的行，则该行不会出现在结果集中。</p>
+<ul>
+<li><strong>特点</strong>：<ul>
+<li>返回两个表中匹配的行。</li>
+<li>如果没有匹配的行，则不显示。</li>
+<li>是最常用的连接类型。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> table2</span><br><span class="line"><span class="keyword">ON</span> table1.column_name <span class="operator">=</span> table2.column_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>示例</strong>：<br>假设我们有两个表：<code>Customer</code> 和 <code>Orders</code>，其中 <code>Customer</code> 表包含客户信息，<code>Orders</code> 表包含订单信息。通过 <code>INNER JOIN</code> 可以获取每个客户的订单信息：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer.CustomerName, Orders.OrderID</span><br><span class="line"><span class="keyword">FROM</span> Customer</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Customer.CustomerID <span class="operator">=</span> Orders.CustomerID;</span><br></pre></td></tr></table></figure>
+
+<p>结果集中只包含那些在两个表中都存在匹配记录的行。</p>
+<h4 id="2-LEFT-JOIN（左连接）"><a href="#2-LEFT-JOIN（左连接）" class="headerlink" title="2. LEFT JOIN（左连接）"></a>2. LEFT JOIN（左连接）</h4><p>LEFT JOIN（也称为左外连接）返回左表（即在 <code>JOIN</code> 关键字左侧的表）的所有行，即使右表中没有匹配的行。如果右表中没有匹配的行，则结果集中右表的列会显示为 <code>NULL</code>。</p>
+<ul>
+<li><strong>特点</strong>：<ul>
+<li>返回左表的所有行，即使右表中没有匹配的行。</li>
+<li>如果右表中没有匹配的行，则右表的列显示为 <code>NULL</code>。</li>
+<li>是一种包容性的连接方式。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> table2</span><br><span class="line"><span class="keyword">ON</span> table1.column_name <span class="operator">=</span> table2.column_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>示例</strong>：<br>继续使用上面的 <code>Customer</code> 和 <code>Orders</code> 表，通过 <code>LEFT JOIN</code> 可以获取所有客户的信息，即使某些客户没有订单：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer.CustomerName, Orders.OrderID</span><br><span class="line"><span class="keyword">FROM</span> Customer</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Customer.CustomerID <span class="operator">=</span> Orders.CustomerID;</span><br></pre></td></tr></table></figure>
+
+<p>结果集中会包含所有客户的姓名，即使某些客户没有订单，订单信息列会显示为 <code>NULL</code>。</p>
+<h4 id="3-RIGHT-JOIN（右连接）"><a href="#3-RIGHT-JOIN（右连接）" class="headerlink" title="3. RIGHT JOIN（右连接）"></a>3. RIGHT JOIN（右连接）</h4><p>RIGHT JOIN（也称为右外连接）与 LEFT JOIN 类似，但它返回右表的所有行，即使左表中没有匹配的行。如果左表中没有匹配的行，则结果集中左表的列会显示为 <code>NULL</code>。</p>
+<ul>
+<li><strong>特点</strong>：<ul>
+<li>返回右表的所有行，即使左表中没有匹配的行。</li>
+<li>如果左表中没有匹配的行，则左表的列显示为 <code>NULL</code>。</li>
+<li>是一种包容性的连接方式。</li>
+</ul>
+</li>
+<li><strong>语法</strong>：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name(s)</span><br><span class="line"><span class="keyword">FROM</span> table1</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> table2</span><br><span class="line"><span class="keyword">ON</span> table1.column_name <span class="operator">=</span> table2.column_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>示例</strong>：<br>使用相同的 <code>Customer</code> 和 <code>Orders</code> 表，通过 <code>RIGHT JOIN</code> 可以获取所有订单信息，即使某些订单没有客户信息：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customer.CustomerName, Orders.OrderID</span><br><span class="line"><span class="keyword">FROM</span> Customer</span><br><span class="line"><span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Customer.CustomerID <span class="operator">=</span> Orders.CustomerID;</span><br></pre></td></tr></table></figure>
+
+<p>结果集中会包含所有订单信息，即使某些订单没有客户信息，客户信息列会显示为 <code>NULL</code>。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li><strong>INNER JOIN</strong>：只返回两个表中匹配的行。</li>
+<li><strong>LEFT JOIN</strong>：返回左表的所有行，即使右表中没有匹配的行。</li>
+<li><strong>RIGHT JOIN</strong>：返回右表的所有行，即使左表中没有匹配的行。</li>
+</ul>
+<p>这三种连接类型的选择取决于具体的数据需求和查询目标。例如，如果需要确保左表中的所有记录都被包含，则应使用 LEFT JOIN；如果需要确保右表中的所有记录都被包含，则应使用 RIGHT JOIN。</p>
+<h4 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h4><blockquote>
+<p>自连接</p>
+</blockquote>
+<p>自己的表和自己的表连接，核心：<strong>将一张表拆分为两张表</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询父子信息</span></span><br><span class="line"><span class="keyword">SELECT</span> a.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;父类名&#x27;</span>,b.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;子类名&#x27;</span></span><br><span class="line"><span class="keyword">FROM</span> category <span class="keyword">AS</span> a,category <span class="keyword">AS</span> b</span><br><span class="line"><span class="keyword">WHERE</span> a.categoryid <span class="operator">=</span> b.pid	</span><br></pre></td></tr></table></figure>
+
+
+
+<p>父类</p>
+<table>
+<thead>
+<tr>
+<th>categoryid</th>
+<th>categoryName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>信息技术</td>
+</tr>
+<tr>
+<td>3</td>
+<td>软件开发</td>
+</tr>
+<tr>
+<td>5</td>
+<td>美术设计</td>
+</tr>
+</tbody></table>
+<p>子类</p>
+<table>
+<thead>
+<tr>
+<th>pid</th>
+<th>categoryid</th>
+<th>categoryName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>4</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6</td>
+<td>web开发</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7</td>
+<td>PS技术</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8</td>
+<td>办公信息</td>
+</tr>
+</tbody></table>
+<p>操作：查询父类对应的子类关系</p>
+<table>
+<thead>
+<tr>
+<th>父类</th>
+<th>子类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>软件开发</td>
+<td>数据库</td>
+</tr>
+<tr>
+<td>软件开发</td>
+<td>web开发</td>
+</tr>
+<tr>
+<td>美术设计</td>
+<td>PS技术</td>
+</tr>
+<tr>
+<td>信息技术</td>
+<td>办公信息</td>
+</tr>
+</tbody></table>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2025/03/17/MySQLDay2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/03/18/MySQLday3/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MySQLday3
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/03/16/MySQLday1/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MySQLday1</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Ego"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/588048182?spm_id_from=333.1007.0.0">B站</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://github.com/Egoistestest">GitHub</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://chat.deepseek.com/">Deepseek</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://egoistestest.github.io/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

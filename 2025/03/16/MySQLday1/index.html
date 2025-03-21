@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="为了喜欢而努力" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQLday1 |  Ego</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Ego" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-MySQLday1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQLday1
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/03/16/MySQLday1/" class="article-date">
+  <time datetime="2025-03-16T11:41:06.000Z" itemprop="datePublished">2025-03-16</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>![image-20250316092404391](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316092404391.png)</p>
+<h2 id="1-初始MySql"><a href="#1-初始MySql" class="headerlink" title="1.初始MySql"></a>1.初始MySql</h2><ol>
+<li><p>数据库是连接前后端的桥梁，负责存储数据</p>
+</li>
+<li><p>MySql是一种关系数据库(Relationship Database)</p>
+</li>
+<li><p>数据库分为关系数据库(SQL)（MySql，Oracle）和非关系数据库(NoSQL,Not Only SQL)（Redis，MongDB）</p>
+</li>
+<li><p>DBMS和DB的关系</p>
+</li>
+</ol>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><blockquote>
+<p>命令行，也就是<em><strong>命令窗口连接数据库</strong></em></p>
+<p><strong>基本的sql操作</strong></p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>uroot <span class="operator">-</span>proot  <span class="comment">--连接数据库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> mysql.user <span class="keyword">set</span> authentication_string<span class="operator">=</span>password(<span class="string">&#x27;root&#x27;</span>) <span class="keyword">where</span> <span class="keyword">user</span><span class="operator">=</span><span class="string">&#x27;root&#x27;</span> <span class="keyword">and</span> Host <span class="operator">=</span> <span class="string">&#x27;localhost&#x27;</span>; <span class="comment">--修改用户密码</span></span><br><span class="line"></span><br><span class="line">flush privileges  <span class="comment">--刷新用户权限</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 所有语句都使用；结尾，sql语句允许换行输入查询</span></span><br><span class="line"><span class="keyword">show</span> database;  <span class="comment">--查看所有数据库</span></span><br><span class="line"></span><br><span class="line">use school;  <span class="comment">--切换数据库为school</span></span><br><span class="line"></span><br><span class="line">Database changed;</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> tables;  <span class="comment">--查看数据库中所有的表</span></span><br><span class="line"><span class="keyword">describe</span> student;  <span class="comment">--显示数据库中所有表的信息</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> database teacher;  <span class="comment">--创建一个数据库</span></span><br><span class="line"></span><br><span class="line">exit;  <span class="comment">--推出</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--  单行注释</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">多行注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>DDL  定义</p>
+<p>DML  操作</p>
+<p>DQL  查询</p>
+<p>DCL  控制</p>
+<h2 id="2-操作数据库"><a href="#2-操作数据库" class="headerlink" title="2.操作数据库"></a>2.操作数据库</h2><h3 id="2-1操作数据库（了解）"><a href="#2-1操作数据库（了解）" class="headerlink" title="2.1操作数据库（了解）"></a>2.1操作数据库（了解）</h3><ol>
+<li><p>创建数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] student;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>删除数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> DATABASE [IF <span class="keyword">EXISTS</span>] student;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--  如果表名或者字段名是一个特殊字符时使用</span></span><br><span class="line">USE `cloudlibrary`;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查看数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> DATABASE </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-2数据库的数据类型"><a href="#2-2数据库的数据类型" class="headerlink" title="2.2数据库的数据类型"></a>2.2数据库的数据类型</h3><blockquote>
+<p>基本类型</p>
+</blockquote>
+<ul>
+<li><strong>int   标准整数     四个字节  常用</strong></li>
+</ul>
+<blockquote>
+<p>字符串</p>
+</blockquote>
+<ul>
+<li><strong>varchar   可变字符   0 - 65535  常用</strong></li>
+</ul>
+<blockquote>
+<p>时间和日期</p>
+</blockquote>
+<ul>
+<li><strong>datetime</strong>  <strong>常用</strong></li>
+</ul>
+<blockquote>
+<p>null</p>
+</blockquote>
+<h3 id="2-3数据库的字段属性（重点）"><a href="#2-3数据库的字段属性（重点）" class="headerlink" title="2.3数据库的字段属性（重点）"></a>2.3数据库的字段属性（重点）</h3><p>![image-20250316115342383](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316115342383.png)</p>
+<hr>
+<ul>
+<li>自增</li>
+</ul>
+<blockquote>
+<p>主要作用于主键</p>
+<p>可以设置步长</p>
+</blockquote>
+<ul>
+<li>非空</li>
+</ul>
+<blockquote>
+<p>设置非空后不填入数据会报错</p>
+</blockquote>
+<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  每一个表，都必须存在一下五个字段，未来做项目会使用，表示一个记录存在的意义</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">id         主键</span></span><br><span class="line"><span class="comment">`version`  乐观锁</span></span><br><span class="line"><span class="comment">is_delete  伪删除</span></span><br><span class="line"><span class="comment">gmt_create 创建时间</span></span><br><span class="line"><span class="comment">gmt_update 修改时间</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-4创建数据库表（重点）"><a href="#2-4创建数据库表（重点）" class="headerlink" title="2.4创建数据库表（重点）"></a>2.4创建数据库表（重点）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一个数据库school</span></span><br><span class="line"><span class="comment">-- 创建学生表</span></span><br><span class="line"><span class="comment">--  学号int，登陆密码，姓名，性别，出生日期，家庭住址</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 使用英文括号，表名 和 字段名 最好使用``括起来</span></span><br><span class="line"><span class="comment">-- navicat自增在设置主键的时候设置</span></span><br><span class="line"><span class="comment">-- 字符串使用&#x27;&#x27;括起来</span></span><br><span class="line"><span class="comment">-- 所有的语句后面加, 最后一个不加</span></span><br><span class="line"><span class="comment">-- PRIMARY KEY(`id`),一般一个表只有一个</span></span><br><span class="line"><span class="comment">-- CREATE DATABASE IF NOT EXISTS `school`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE TABLE</span> `student`(</span><br><span class="line">		`id` <span class="type">INT</span>(<span class="number">4</span>) <span class="keyword">NOT NULL</span> COMMENT <span class="string">&#x27;学号&#x27;</span>,</span><br><span class="line">		`name` <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">NOT NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;匿名&#x27;</span> COMMENT <span class="string">&#x27;名字&#x27;</span>,</span><br><span class="line">		`pwd` <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;123456&#x27;</span> COMMENT <span class="string">&#x27;密码&#x27;</span>,</span><br><span class="line">		`gender` <span class="type">VARCHAR</span>(<span class="number">2</span>) <span class="keyword">NOT NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;男&#x27;</span> COMMENT <span class="string">&#x27;性别&#x27;</span>,</span><br><span class="line">		`address` <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;家庭住址&#x27;</span>,</span><br><span class="line">		`email` <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;邮箱&#x27;</span>,</span><br><span class="line">		<span class="keyword">PRIMARY KEY</span>(`id`)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> `表名`(</span><br><span class="line"><span class="string">&#x27;字段名&#x27;</span> 列类型 [属性] [索引] [注释],</span><br><span class="line"><span class="string">&#x27;字段名&#x27;</span> 列类型 [属性] [索引] [注释],</span><br><span class="line"><span class="string">&#x27;字段名&#x27;</span> 列类型 [属性] [索引] [注释],</span><br><span class="line">......</span><br><span class="line"><span class="string">&#x27;字段名&#x27;</span> 列类型 [属性] [索引] [注释]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> DATABASE `school`  <span class="comment">-- 查看创建数据库的语句</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE TABLE</span> `student`  <span class="comment">-- 查看创建表的语句</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">DESC</span> student  <span class="comment">-- 显示表的结构</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-5数据表的类型"><a href="#2-5数据表的类型" class="headerlink" title="2.5数据表的类型"></a>2.5数据表的类型</h3><blockquote>
+<p>物理空间存储的位置都在data目录下，本质还是文件的存储</p>
+</blockquote>
+<p>![image-20250316160615846](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316160615846.png)</p>
+<hr>
+<p>![image-20250316160638048](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316160638048.png)</p>
+<hr>
+<h3 id="2-6修改删除表"><a href="#2-6修改删除表" class="headerlink" title="2.6修改删除表"></a>2.6修改删除表</h3><blockquote>
+<p>修改</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改表名 ALTER TABLE 表名 RENAME AS 新表名</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> student RENAME <span class="keyword">AS</span> student1</span><br><span class="line"><span class="comment">-- 增加表的字段  ALTER TABLE 表名 ADD 字段名 列属性</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> student1 <span class="keyword">ADD</span> age <span class="type">INT</span>(<span class="number">10</span>)</span><br><span class="line"><span class="comment">-- 修改表的字段（重命名，修改约束）</span></span><br><span class="line"><span class="comment">-- 修改约束 ALTER TABLE 表名 MODIFY 字段名 列属性</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> student1 MODIFY age <span class="type">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line"><span class="comment">-- 字段重命名 ALTER TABLE 表名 CHANGE 新字段名 旧字段名 列属性</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> student1 CHANGE age age1 <span class="type">INT</span>(<span class="number">10</span>)</span><br><span class="line"><span class="comment">-- 删除表的字段 ALTER TABLE 表名 DROP 字段名</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> student1 <span class="keyword">DROP</span> age1</span><br></pre></td></tr></table></figure>
+
+<p>最终结论：</p>
+<ul>
+<li>change用来字段重命名，不能修改字段类型和约束</li>
+<li>modify不用来字段重命名，只能修改字段类型和约束</li>
+</ul>
+<blockquote>
+<p>删除</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 删除表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> student </span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-数据管理"><a href="#3-数据管理" class="headerlink" title="3.数据管理"></a>3.数据管理</h2><h3 id="3-1-外键（了解即可）"><a href="#3-1-外键（了解即可）" class="headerlink" title="3.1 外键（了解即可）"></a>3.1 外键（了解即可）</h3><blockquote>
+<p>第一种创建外键的方法</p>
+</blockquote>
+<p>![image-20250316165211255](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316165211255.png)</p>
+<hr>
+<blockquote>
+<p>第二种创建外键的方法</p>
+</blockquote>
+<p>![image-20250316165252800](E:\hobby\Hexo Blog\blog\source_posts\MySQLday1.assets\image-20250316165252800.png)</p>
+<hr>
+<blockquote>
+<p>不建议使用物理外键，也就是数据库级别的外键，容易造成表互相关联，不易删除</p>
+<p>想使用外键关联多张表查数据，依靠程序来完成</p>
+</blockquote>
+<h3 id="3-2-DML语言（全部记住）"><a href="#3-2-DML语言（全部记住）" class="headerlink" title="3.2 DML语言（全部记住）"></a>3.2 DML语言（全部记住）</h3><blockquote>
+<p>数据库管理语言</p>
+</blockquote>
+<p><strong>数据库意义</strong>：数据存储，数据管理</p>
+<p>DML语言 ：数据操作语言</p>
+<ul>
+<li>insert</li>
+<li>update</li>
+<li>delete</li>
+</ul>
+<h3 id="3-3-添加-insert"><a href="#3-3-添加-insert" class="headerlink" title="3.3 添加(insert)"></a>3.3 添加(insert)</h3><blockquote>
+<p>insert命令</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 插入语句（增）</span></span><br><span class="line"><span class="comment">-- INSERT INTO `表名` (`字段名`) VALUES(&#x27;值&#x27;)</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student` (`id`) <span class="keyword">VALUES</span>(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- INSERT INTO `student` (`字段名1`,`字段名2`) VALUES(&#x27;字段名1的值&#x27;,&#x27;字段名2的值&#x27;)</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student` (`id`,`name`) <span class="keyword">VALUES</span>(<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;ego&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果省略字段名就会一一匹配</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student` <span class="keyword">VALUES</span>(<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;ego&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入多个字段，一般采用以下写法，方便观察</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student` (`id`,`name`)</span><br><span class="line"><span class="keyword">VALUES</span>(<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;ego&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 同时插入多个字段的多个值</span></span><br><span class="line"><span class="keyword">INSERT INTO</span> `student` (`id`,`name`)</span><br><span class="line"><span class="keyword">VALUES</span>(<span class="string">&#x27;4&#x27;</span>,<span class="string">&#x27;ego&#x27;</span>),(<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;Ego&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总结：</p>
+<ul>
+<li>字段之间使用英文逗号隔开</li>
+<li>字段与值之间一一对应</li>
+</ul>
+</blockquote>
+<h3 id="3-4-修改-update"><a href="#3-4-修改-update" class="headerlink" title="3.4 修改(update)"></a>3.4 修改(update)</h3><blockquote>
+<p>updadte命令</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改语句（改）</span></span><br><span class="line"><span class="keyword">UPDATE</span> `student` <span class="keyword">SET</span> name <span class="operator">=</span> <span class="string">&#x27;ego&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 不增加限制条件,会改动所有的表</span></span><br><span class="line"><span class="keyword">UPDATE</span> `student` <span class="keyword">SET</span> name <span class="operator">=</span> <span class="string">&#x27;Ego&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改多个属性，逗号隔开</span></span><br><span class="line"><span class="keyword">UPDATE</span> `student` <span class="keyword">SET</span> name <span class="operator">=</span> <span class="string">&#x27;ego&#x27;</span>, gender <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 语法</span></span><br><span class="line"><span class="keyword">UPDATE</span> `表名` <span class="keyword">SET</span> colnum_name <span class="operator">=</span> <span class="string">&#x27;值&#x27;</span> <span class="keyword">where</span> [条件]</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>where字句中的运算符id关系</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">操作符</th>
+<th>含义</th>
+<th>范围</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&#x3D;</td>
+<td></td>
+<td>6&#x3D;6</td>
+<td>true</td>
+</tr>
+<tr>
+<td align="center">&lt;&gt; or !&#x3D;</td>
+<td></td>
+<td>5&lt;&gt;6</td>
+<td>true</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">&gt;&#x3D;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">&lt;&#x3D;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">BETWEEN…AND…</td>
+<td>在某个范围内</td>
+<td>[4,10]</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">AND</td>
+<td>&amp;&amp;</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="center">OR</td>
+<td>||</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>总结：</p>
+<ul>
+<li>多个属性之间一定要使用逗号隔开</li>
+</ul>
+</blockquote>
+<h3 id="3-5-删除-delete"><a href="#3-5-删除-delete" class="headerlink" title="3.5 删除(delete)"></a>3.5 删除(delete)</h3><blockquote>
+<p>delete命令</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 避免使用，会删除所有的内容</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> `student`</span><br><span class="line"><span class="comment">-- 删除指定的数据</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> `student` <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>TRUNCATE命令</p>
+</blockquote>
+<p>作用：完全清空一个数据库表，表的结构和索引约束不会改变</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 清空student表</span></span><br><span class="line"><span class="keyword">TRUNCATE</span> `student`</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>delete 与 TRUNCATE 的区别</p>
+</blockquote>
+<ul>
+<li>相同点：都会删除数据，但是不破坏表结构</li>
+<li>不同：<ul>
+<li>重写设置 <strong>自增列</strong> 计数器会归零</li>
+<li>不会影响事务</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2025/03/16/MySQLday1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/03/17/MySQLDay2/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MySQLDay2
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/03/15/Reflection/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Reflection</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Ego"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/588048182?spm_id_from=333.1007.0.0">B站</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://github.com/Egoistestest">GitHub</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://chat.deepseek.com/">Deepseek</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://egoistestest.github.io/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

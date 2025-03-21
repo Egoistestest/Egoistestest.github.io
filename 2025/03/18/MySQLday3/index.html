@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="为了喜欢而努力" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQLday3 |  Ego</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Ego" type="application/atom+xml">
+</head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-MySQLday3"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQLday3
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/03/18/MySQLday3/" class="article-date">
+  <time datetime="2025-03-18T14:01:16.000Z" itemprop="datePublished">2025-03-18</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">3.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">12 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="4-5-分页和排序"><a href="#4-5-分页和排序" class="headerlink" title="4.5 分页和排序"></a>4.5 分页和排序</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 分页和排序</span></span><br><span class="line"><span class="comment">-- 关键字 ORDER BY</span></span><br><span class="line"><span class="comment">-- 升序 ASC     降序 DESC</span></span><br><span class="line"><span class="keyword">SELECT</span> a.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;父类名&#x27;</span>,b.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;子类名&#x27;</span>,a.pid,b.pid</span><br><span class="line"><span class="keyword">FROM</span> category <span class="keyword">AS</span> a,category <span class="keyword">AS</span> b</span><br><span class="line"><span class="keyword">WHERE</span> a.categoryid <span class="operator">=</span> b.pid	</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> b.pid <span class="keyword">DESC</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 分页查询</span></span><br><span class="line"><span class="comment">-- 语法 LIMIT </span></span><br><span class="line"><span class="comment">-- LIMIT 0,5  起始页，一页的数据量</span></span><br><span class="line"><span class="comment">-- LIMIT 5,5  起始页，一页的数据量</span></span><br><span class="line"><span class="keyword">SELECT</span> a.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;父类名&#x27;</span>,b.`categoryName` <span class="keyword">AS</span> <span class="string">&#x27;子类名&#x27;</span>,a.pid,b.pid</span><br><span class="line"><span class="keyword">FROM</span> category <span class="keyword">AS</span> a,category <span class="keyword">AS</span> b</span><br><span class="line"><span class="keyword">WHERE</span> a.categoryid <span class="operator">=</span> b.pid	</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> b.pid <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">2</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>前端处理数据时会用到的数据公式：</strong></p>
+<p>![image-20250318112444770](E:\hobby\Hexo Blog\blog\source_posts\MySQLday3.assets\image-20250318112444770.png)</p>
+<hr>
+<h3 id="4-6-子查询"><a href="#4-6-子查询" class="headerlink" title="4.6 子查询"></a>4.6 子查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- P23</span></span><br><span class="line"><span class="comment">-- 1.查询 高等数学-1 的所有考试结果（学号，科目编号，成绩），降序排列</span></span><br><span class="line"><span class="keyword">SELECT</span> `studentno`,r.`subjectno`,`studentresult`</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">result</span> <span class="keyword">AS</span> r</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> `subject` <span class="keyword">AS</span> sub</span><br><span class="line"><span class="keyword">ON</span> r.subjectno <span class="operator">=</span> sub.subjectno</span><br><span class="line"><span class="keyword">WHERE</span> sub.`subjectname` <span class="operator">=</span> <span class="string">&#x27;高等数学-1&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> studentresult <span class="keyword">DESC</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 2.使用子查询(由里及外)</span></span><br><span class="line"><span class="keyword">SELECT</span> `studentno`,r.`subjectno`,`studentresult`</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">result</span> <span class="keyword">AS</span> r</span><br><span class="line"><span class="keyword">WHERE</span> `subjectno` <span class="operator">=</span> (</span><br><span class="line">		<span class="keyword">SELECT</span> `subjectno` <span class="keyword">FROM</span> `subject`</span><br><span class="line">		<span class="keyword">WHERE</span> `subjectname` <span class="operator">=</span> <span class="string">&#x27;高等数学-1&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询所有学高数1 的同学</span></span><br><span class="line"><span class="keyword">SELECT</span> `subjectno` <span class="keyword">FROM</span> `subject`</span><br><span class="line"><span class="keyword">WHERE</span> `subjectname` <span class="operator">=</span> <span class="string">&#x27;高等数学-1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-7-分组查询"><a href="#4-7-分组查询" class="headerlink" title="4.7 分组查询"></a>4.7 分组查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询不同课程的品均分，最高分和最低分，平均分大于80</span></span><br><span class="line"><span class="keyword">SELECT</span> `subjectname`, <span class="built_in">AVG</span>(studentresult) <span class="keyword">AS</span> 平均分, <span class="built_in">MAX</span>(studentresult) <span class="keyword">AS</span> 最高分,<span class="built_in">MIN</span>(studentresult) <span class="keyword">AS</span> 最低分</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">result</span> r</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> `subject` sub</span><br><span class="line"><span class="keyword">ON</span> r.`subjectno` <span class="operator">=</span> sub.`subjectno`</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 通过什么字段来分组</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> r.`subjectno`  </span><br><span class="line"></span><br><span class="line"><span class="comment">-- 由于存在GROUP BY，不能使用where，使用having，having不限制使用次数</span></span><br><span class="line"><span class="keyword">HAVING</span> 平均分<span class="operator">&gt;</span><span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-8-select小结"><a href="#4-8-select小结" class="headerlink" title="4.8 select小结"></a>4.8 select小结</h3><blockquote>
+<p>以后的查询中可能不只有联表查询，还会存在跨数据库查询，比如有关联的数据存储在MySQL，无关联的数据，像图片，存储在MongoDB数据库中</p>
+</blockquote>
+<h2 id="5-MySQL函数"><a href="#5-MySQL函数" class="headerlink" title="5. MySQL函数"></a>5. MySQL函数</h2><h3 id="5-1-不用练习的常用函数"><a href="#5-1-不用练习的常用函数" class="headerlink" title="5.1 不用练习的常用函数"></a>5.1 不用练习的常用函数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>+++</p>
+<h3 id="5-2-聚合函数"><a href="#5-2-聚合函数" class="headerlink" title="5.2 聚合函数"></a>5.2 聚合函数</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>COUNT()</td>
+<td>计数</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>最大</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>最小</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>求和</td>
+</tr>
+<tr>
+<td>AVG()</td>
+<td>平均</td>
+</tr>
+</tbody></table>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- COUNT(*) 和 COUNT(1) 在大多数情况下是等效的，它们都统计了查询结果的行数。</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(`subjectname`) <span class="keyword">FROM</span> `subject`   <span class="comment">-- 会忽略所有的null值</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> `subject`               <span class="comment">-- 不会忽略null值  本质是计算行数</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="number">1</span>) <span class="keyword">FROM</span> `subject`               <span class="comment">-- 不会忽略null值  本质是计算行数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(studentresult) <span class="keyword">FROM</span> <span class="keyword">result</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MIN</span>(studentresult) <span class="keyword">FROM</span> <span class="keyword">result</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(studentresult) <span class="keyword">FROM</span> <span class="keyword">result</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(studentresult) <span class="keyword">FROM</span> <span class="keyword">result</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-3-数据库级别的MD5加密"><a href="#5-3-数据库级别的MD5加密" class="headerlink" title="5.3 数据库级别的MD5加密"></a>5.3 数据库级别的MD5加密</h3><hr>
+<p>![image-20250318124246680](E:\hobby\Hexo Blog\blog\source_posts\MySQLday3.assets\image-20250318124246680.png)</p>
+<hr>
+<p>MD5（Message-Digest Algorithm 5）是一种广泛使用的哈希算法，由美国密码学家Ron Rivest于1991年设计开发。其主要功能是将任意长度的输入数据（如文本、文件等）转换为一个固定长度的128位（32个十六进制字符）哈希值，通常用于数据完整性校验、密码存储和数字签名等领域。</p>
+<h4 id="MD5的特点"><a href="#MD5的特点" class="headerlink" title="MD5的特点"></a>MD5的特点</h4><ol>
+<li><strong>固定长度输出</strong>：无论输入数据的长度如何，MD5都会生成一个固定长度的128位哈希值。</li>
+<li><strong>不可逆性</strong>：MD5是单向哈希函数，即无法从哈希值反向推导出原始数据。</li>
+<li><strong>抗修改性</strong>：对输入数据的任何微小改动都会导致生成完全不同的哈希值。</li>
+<li><strong>抗碰撞性</strong>：尽管存在碰撞攻击的可能性，但在实际应用中，找到两个不同输入产生相同哈希值的概率非常低。</li>
+</ol>
+<h4 id="MD5的应用"><a href="#MD5的应用" class="headerlink" title="MD5的应用"></a>MD5的应用</h4><ol>
+<li><strong>数据完整性校验</strong>：通过比较文件的MD5值，可以检测文件是否被篡改或损坏。</li>
+<li><strong>密码存储</strong>：MD5常用于存储用户密码的哈希值，以保护用户隐私。</li>
+<li><strong>数字签名</strong>：MD5可以用于生成数字签名，确保数据的完整性和来源的真实性。</li>
+<li><strong>网络安全</strong>：在防病毒软件中，MD5用于检测文件是否被修改或感染。</li>
+</ol>
+<h4 id="MD5的安全性问题"><a href="#MD5的安全性问题" class="headerlink" title="MD5的安全性问题"></a>MD5的安全性问题</h4><p>尽管MD5曾被广泛应用于多个领域，但其安全性已逐渐受到质疑：</p>
+<ol>
+<li><strong>碰撞攻击</strong>：研究表明，通过特定算法可以找到两个不同的输入产生相同的MD5哈希值，这使得MD5在某些场景下不再安全。</li>
+<li><strong>弱抗碰撞攻击</strong>：虽然强抗碰撞攻击较为困难，但弱抗碰撞攻击已经可以通过暴力破解实现。</li>
+<li><strong>法律合规性问题</strong>：由于MD5的安全性不足，某些国家或地区和地区已禁止其用于敏感数据的加密。</li>
+</ol>
+<h4 id="替代方案"><a href="#替代方案" class="headerlink" title="替代方案"></a>替代方案</h4><p>鉴于MD5的安全性问题，现代应用中更倾向于使用SHA-256等更安全的哈希算法。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>MD5是一种经典的哈希算法，具有快速计算、固定长度输出和不可逆性等特点，曾广泛应用于数据完整性校验、密码存储和数字签名等领域。然而，由于其存在碰撞攻击和安全性不足的问题，目前已被许多场景所弃用，推荐使用更安全的哈希算法如SHA-256。</p>
+<hr>
+<h2 id="6-事务"><a href="#6-事务" class="headerlink" title="6.  事务"></a>6.  事务</h2><h3 id="6-1-什么是事务"><a href="#6-1-什么是事务" class="headerlink" title="6.1 什么是事务"></a>6.1 什么是事务</h3><p>&#x3D;&#x3D;要么都成功，要么都失败,下面两个语句要么都失败，要么都成功，在一个批次共同完成&#x3D;&#x3D;</p>
+<hr>
+<ol>
+<li>SQL执行   A：1000  B：500  A——》B：200</li>
+<li>SQL执行  B收到A的钱  A:800  B:700</li>
+</ol>
+<hr>
+<blockquote>
+<p>&#x3D;&#x3D;事务原则&#x3D;&#x3D; ：ACID原则</p>
+</blockquote>
+<h4 id="1-原子性（Atomicity）"><a href="#1-原子性（Atomicity）" class="headerlink" title="1. 原子性（Atomicity）"></a>1. 原子性（Atomicity）</h4><p>原子性要求事务作为一个不可分割的整体执行。如果事务中的任何操作失败，整个事务将被回滚，确保数据不会处于部分完成的状态。例如，在银行转账中，如果转账操作因网络问题失败，系统会自动撤销已执行的操作，确保账户余额保持一致。</p>
+<ul>
+<li><strong>实现方式</strong>：通过事务控制语句（如<code>BEGIN TRANSACTION</code>和<code>ROLLBACK</code>）来管理事务的开始和结束。如果事务中的任何操作失败，系统会自动回滚到事务开始前的状态。</li>
+</ul>
+<h4 id="2-一致性（Consistency）"><a href="#2-一致性（Consistency）" class="headerlink" title="2. 一致性（Consistency）"></a>2. 一致性（Consistency）</h4><p>一致性确保事务将数据库从一个一致状态转换到另一个一致状态。事务必须遵守预定义的规则和约束，以保持数据的完整性和准确性。例如，在更新客户信息时，必须确保所有字段符合业务规则（如年龄不能为负数）。</p>
+<ul>
+<li><strong>实现方式</strong>：通过约束条件（如外键、唯一性约束）和触发器来维护数据的一致性。事务完成后，数据库的状态必须满足所有约束条件。</li>
+</ul>
+<h4 id="3-隔离性（Isolation）"><a href="#3-隔离性（Isolation）" class="headerlink" title="3. 隔离性（Isolation）"></a>3. 隔离性（Isolation）</h4><p>隔离性确保并发执行的事务之间相互独立，不会受到其他事务的影响。例如，在多用户同时更新同一张表时，每个事务都应独立运行，不会干扰其他事务的结果。</p>
+<ul>
+<li><strong>实现方式</strong>：通过锁机制（如行级锁、表级锁）和并发控制算法（如MVCC）来实现事务的隔离性。这些机制可以防止数据冲突和脏读。</li>
+</ul>
+<h4 id="4-持久性（Durability）"><a href="#4-持久性（Durability）" class="headerlink" title="4. 持久性（Durability）"></a>4. 持久性（Durability）</h4><p>持久性要求事务完成后，所做的更改永久保存在数据库中，即使系统发生故障也不会丢失数据。例如，在提交支付交易后，数据必须被写入磁盘或日志文件，以确保在系统崩溃后仍能恢复。</p>
+<ul>
+<li><strong>实现方式</strong>：通过日志记录（如redo log）和备份机制来保证数据的持久性。事务完成后，系统会将更改永久存储到磁盘上，确保数据的安全性。</li>
+</ul>
+<blockquote>
+<p>隔离产生的问题</p>
+</blockquote>
+<p>隔离性虽然能够保证事务的独立性和一致性，但在高并发场景下，可能会引发一些问题：</p>
+<ol>
+<li><strong>脏读（Dirty Read）</strong><br>脏读是指一个事务读取了另一个事务未提交的数据。如果未提交的事务最终回滚，则读取到的数据是无效的。例如，事务A修改了某个记录但未提交，事务B读取了该记录并基于此做出决策，但后来事务A回滚，事务B的操作就会基于错误的数据。</li>
+<li><strong>不可重复读（Non-Repeatable Read）</strong><br>不可重复读是指在一个事务内多次读取同一数据时，结果可能不同。例如，事务A第一次读取某个记录后，事务B修改了该记录并提交，事务A再次读取时会得到不同的结果。（这个不一定是错误，只是某些场合不对）</li>
+<li><strong>幻读（Phantom Read）</strong><br>幻读是指在一个事务内两次执行相同的查询条件时，返回的结果集不同。例如，事务A查询某个范围内的记录后，事务B插入了一条新记录并提交，事务A再次查询时会发现多了一条记录。</li>
+</ol>
+<h4 id="执行事务"><a href="#执行事务" class="headerlink" title="执行事务"></a>执行事务</h4><blockquote>
+<p>执行事务</p>
+</blockquote>
+<hr>
+<p>![image-20250318153309134](E:\hobby\Hexo Blog\blog\source_posts\MySQLday3.assets\image-20250318153309134.png)</p>
+<hr>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 事务</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- mysql是默认开启事务自动提交的</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span> <span class="comment">-- 关闭</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">1</span> <span class="comment">-- 开启（默认）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 手动处理业务</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">0</span>  <span class="comment">-- 关闭自动提交</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 事务开启</span></span><br><span class="line"><span class="keyword">START</span> TRANSACTION  <span class="comment">-- 标记一个事务的开始</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT INTO</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="keyword">FROM</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 提交：持久化（成功）</span></span><br><span class="line"><span class="keyword">COMMIT</span></span><br><span class="line"><span class="comment">-- 回滚：回到原来的样子（失败）</span></span><br><span class="line"><span class="keyword">ROLLBACK</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 事务结束</span></span><br><span class="line"><span class="keyword">SET</span> autocommit <span class="operator">=</span> <span class="number">1</span>    <span class="comment">-- 开启自动提交</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 了解</span></span><br><span class="line"><span class="keyword">SAVEPOINT</span> 保存点名  <span class="comment">--  设置一个事务的保存点</span></span><br><span class="line"><span class="keyword">ROLLBACK</span> <span class="keyword">TO</span> <span class="keyword">SAVEPOINT</span> 保存点名  <span class="comment">-- 回滚到保存点</span></span><br><span class="line"><span class="keyword">RELEASE</span> <span class="keyword">SAVEPOINT</span> 保存点名    <span class="comment">-- 撤销保存点 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-索引"><a href="#7-索引" class="headerlink" title="7. 索引"></a>7. 索引</h2><blockquote>
+<p>MySQL官方对索引的定义为：索引是帮助MySQL高效获取数据的数据结构。索引的本质是一种特定的数据结构，通常以B-Tree的形式存储，能够满足特定的查找算法。索引可以看作是一个逻辑上有序的列表，其中存储着索引值及其对应的物理地址或逻辑指针。</p>
+</blockquote>
+<h3 id="7-1-索引的分类"><a href="#7-1-索引的分类" class="headerlink" title="7.1 索引的分类"></a>7.1 索引的分类</h3><blockquote>
+<p>在一个表中，主键索引只能存在一个，唯一索引可以存在多个</p>
+</blockquote>
+<ul>
+<li><p>主键索引（PRIMARY KEY）</p>
+<ul>
+<li>唯一的标识，主键不可以重复，只有一个列（字段）作为主键</li>
+</ul>
+</li>
+<li><p>唯一索引（UNIQUE KEY）</p>
+<ul>
+<li>避免重复的列出现，唯一索引可以重复，可以有多个列作为唯一索引</li>
+</ul>
+</li>
+<li><p>常规索引（KEY&#x2F;INDEX）</p>
+<ul>
+<li>默认的</li>
+</ul>
+</li>
+<li><p>全文索引（FullText）</p>
+<ul>
+<li>在特定的数据库引擎下</li>
+<li>快速定位数据</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 索引的使用</span></span><br><span class="line"><span class="comment">-- 1.创建表的时候给字段添加索引</span></span><br><span class="line"><span class="comment">-- 2.创建完毕后，增加索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 显示所有索引信息</span></span><br><span class="line"><span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> student</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 增加一个全文索引（索引名）  列名</span></span><br><span class="line"><span class="keyword">ALTER TABLE</span> school.student <span class="keyword">ADD</span> FULLTEXT `studentname`(`studentname`)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- EXPLAIN 分析SQL执行的情况</span></span><br><span class="line"></span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> student</span><br><span class="line"></span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> <span class="keyword">MATCH</span>(studentname) against(<span class="string">&#x27;刘&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="7-2-测试索引"><a href="#7-2-测试索引" class="headerlink" title="7.2 测试索引"></a>7.2 测试索引</h3><blockquote>
+<p>索引在小数据量的时候不明显，但是当数据量十分大的时候，区别十分明显</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE TABLE</span> `app_user` (</span><br><span class="line">`id` <span class="type">BIGINT</span>(<span class="number">20</span>) UNSIGNED <span class="keyword">NOT NULL</span> AUTO_INCREMENT,</span><br><span class="line">`name` <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">DEFAULT</span><span class="string">&#x27;&#x27;</span> COMMENT<span class="string">&#x27;用户昵称&#x27;</span>,</span><br><span class="line">`email` <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">NOT NULL</span> COMMENT<span class="string">&#x27;用户邮箱&#x27;</span>,</span><br><span class="line">`phone` <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span><span class="string">&#x27;&#x27;</span> COMMENT<span class="string">&#x27;手机号&#x27;</span>,</span><br><span class="line">`gender` TINYINT(<span class="number">4</span>) UNSIGNED <span class="keyword">DEFAULT</span> <span class="string">&#x27;0&#x27;</span>COMMENT <span class="string">&#x27;性别（0：男;1:女）&#x27;</span>,</span><br><span class="line">`password` <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span> COMMENT <span class="string">&#x27;密码&#x27;</span>,</span><br><span class="line">`age` TINYINT(<span class="number">4</span>) <span class="keyword">DEFAULT</span><span class="string">&#x27;0&#x27;</span> COMMENT <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">`create_time` DATETIME <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span>,</span><br><span class="line">`update_time` <span class="type">TIMESTAMP</span> <span class="keyword">NOT NULL</span> <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="built_in">CURRENT_TIMESTAMP</span>,</span><br><span class="line"><span class="keyword">PRIMARY KEY</span> (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>INNODB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT <span class="operator">=</span> <span class="string">&#x27;app用户表&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 百万数据插入</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">FUNCTION</span> IF <span class="keyword">EXISTS</span> mock_data;</span><br><span class="line"><span class="comment">-- 写函数之前必须要写，标志:$$</span></span><br><span class="line">DELIMITER $$</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">FUNCTION</span> mock_data()</span><br><span class="line"><span class="keyword">RETURNS</span> <span class="type">INT</span></span><br><span class="line"><span class="comment">-- 注意returns，否则报错。</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">DECLARE</span> num <span class="type">INT</span> <span class="keyword">DEFAULT</span> <span class="number">1000000</span>;</span><br><span class="line"><span class="comment">-- num 作为截止数字，定义为百万，</span></span><br><span class="line"><span class="keyword">DECLARE</span> i <span class="type">INT</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>;</span><br><span class="line">WHILE i <span class="operator">&lt;</span> num DO</span><br><span class="line"><span class="keyword">INSERT INTO</span> app_user(`name`, `email`, `phone`, `gender`, `password`, `age`)</span><br><span class="line"><span class="keyword">VALUES</span>(CONCAT(<span class="string">&#x27;用户&#x27;</span>, i), CONCAT(<span class="string">&#x27;100&#x27;</span>,i,<span class="string">&#x27;@qq.com&#x27;</span>), CONCAT(<span class="string">&#x27;13&#x27;</span>, <span class="built_in">FLOOR</span>(RAND()<span class="operator">*</span>(<span class="number">999999999</span><span class="number">-100000000</span>)<span class="operator">+</span><span class="number">100000000</span>)),<span class="built_in">FLOOR</span>(RAND()<span class="operator">*</span><span class="number">2</span>),UUID(), <span class="built_in">FLOOR</span>(RAND()<span class="operator">*</span><span class="number">100</span>));</span><br><span class="line"><span class="keyword">SET</span> i <span class="operator">=</span> i <span class="operator">+</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">END</span> WHILE;</span><br><span class="line"><span class="keyword">RETURN</span> i;</span><br><span class="line"><span class="keyword">END</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 数据多的时候查询会明显的变慢，因为会遍历所有数据</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> app_user <span class="keyword">WHERE</span> `name` <span class="operator">=</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> app_user <span class="keyword">WHERE</span> `name` <span class="operator">=</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment">-- id_表名_字段名</span></span><br><span class="line"><span class="comment">-- CREATE INDEX 索引名 ON 表(字段)</span></span><br><span class="line"><span class="keyword">CREATE</span> INDEX id_app_user_name <span class="keyword">ON</span> app_user(`name`)</span><br><span class="line"><span class="comment">-- 再次查询时，因为存在索引只会查询一条数据</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> app_user <span class="keyword">WHERE</span> `name` <span class="operator">=</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> app_user <span class="keyword">WHERE</span> `name` <span class="operator">=</span> <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>![image-20250318213935648](E:\hobby\Hexo Blog\blog\source_posts\MySQLday3.assets\image-20250318213935648.png)</p>
+<hr>
+<h3 id="7-3-索引原则"><a href="#7-3-索引原则" class="headerlink" title="7.3 索引原则"></a>7.3 索引原则</h3><ul>
+<li>索引不是越多越好</li>
+<li>不要对进程变动数据加索引</li>
+<li>小数据量的表无需添加索引</li>
+<li>索引一般加在常用查询的字段上</li>
+</ul>
+<blockquote>
+<p>索引的数据结构</p>
+</blockquote>
+<p>Hash 类型的索引</p>
+<p>Btree：InnoDB的默认数据结构</p>
+<p><a target="_blank" rel="noopener" href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html">http://blog.codinglabs.org/articles/theory-of-mysql-index.html</a></p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2025/03/18/MySQLday3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/03/18/MySQLday4/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MySQLday4
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/03/17/MySQLDay2/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MySQLDay2</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Ego"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://space.bilibili.com/588048182?spm_id_from=333.1007.0.0">B站</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://github.com/Egoistestest">GitHub</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://chat.deepseek.com/">Deepseek</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://egoistestest.github.io/">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
